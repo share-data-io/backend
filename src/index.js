@@ -5,7 +5,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var indexRouter = require("./routes/index");
-// var cors = require("cors");
+var cors = require("cors");
 var http = require("http");
 
 var app = express();
@@ -17,23 +17,10 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", process.env.SHARE_DATA_APP);
-  // Request methods you wish to allow
-  res.setHeader("Access-Control-Allow-Methods", "GET");
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  // Pass to next layer of middleware
-  next();
-});
+app.use(cors({
+  origin: process.env.SHARE_DATA_APP,
+  methods: ['GET']
+}));
 
 app.use("/api", indexRouter);
 
