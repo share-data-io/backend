@@ -19,8 +19,6 @@ app.use(cookieParser());
 
 app.use((req, res, next) => {
 
-  console.log({headers: req.headers})
-
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", process.env.SHARE_DATA_APP);
   // Request methods you wish to allow
@@ -55,14 +53,14 @@ app.use(function (err, req, res) {
   res.render("error");
 });
 
-var port = "4000";
+var port = process.env.PORT || "4000";
 app.set("port", port);
 console.log("API is running on the port", port);
 
 var server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log("starting ");
+  console.log(`starting on port: ${port}`);
 });
 
 module.exports = app;
