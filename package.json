@@ -33,6 +33,7 @@
     "@spheron/storage": "^1.0.13",
     "archiver": "^2.1.0",
     "aws-sdk": "^2.141.0",
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.6",
