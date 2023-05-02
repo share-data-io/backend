@@ -27,19 +27,23 @@ const initiateUpload = async (req, res, next) => {
 
 const cancelUpload = async (req, res, next) => {
   try {
-    const { deploymentId } = req.body;
-    const url = `https://api-v2.spheron.network/v1/deployment/${deploymentId}/cancel`;
+    const { token, deploymentId } = req.body;
+    const url = `https://api-v2.spheron.network/v1/upload-deployment/${deploymentId}/finish?action=CANCEL`;
+
+    console.log({token, deploymentId})
 
     const response = await axios({
       method: "post",
       url,
       headers: {
-        authorization: `Bearer ${process.env.SPHERON_TOKEN}`,
+        authorization: `Bearer ${token}`,
       },
-      data: {}
+      data: {},
     });
 
-    res.status(200).json(response);
+    console.log({response})
+
+    res.status(200).json(response.data);
   } catch (error) {
     console.log({ error });
     next(error);
